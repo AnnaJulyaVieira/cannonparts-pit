@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CannonParts — Protótipo</title>
+<style>
+:root{--bg:#F5F6F8;--card:#fff;--ink:#1F2430;--mut:#6B7280;--line:#E5E7EB;--brand:#B3261E;--brand2:#7B1E1E;--ok:#15803D;--okbg:#DCFCE7;--bad:#B91C1C;--badbg:#FEE2E2;--warn:#B45309;--warnbg:#FEF3C7;--info:#1D4ED8;--infobg:#DBEAFE}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+.app{display:flex;min-height:100vh;width:1440px}
+.side{width:236px;background:#1F2430;color:#E5E7EB;padding:20px 14px;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;margin:0 6px 26px}
+.logo i{width:30px;height:30px;border-radius:8px;background:var(--brand);display:inline-block}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:#C9CED8;text-decoration:none;font-size:13.5px;margin-bottom:2px}
+.nav a.on{background:#2E3442;color:#fff;font-weight:600}
+.nav a b{width:8px;height:8px;border-radius:2px;background:#4B5263;display:inline-block}
+.nav a.on b{background:var(--brand)}
+.nav .sec{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#7C8394;margin:16px 10px 6px}
+.main{flex:1;padding:22px 28px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.top h1{font-size:22px}.top .sub{color:var(--mut);font-size:13px;margin-top:2px}
+.user{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:13px}
+.av{width:34px;height:34px;border-radius:50%;background:#E8D5D3;color:var(--brand2);display:flex;align-items:center;justify-content:center;font-weight:700}
+.row{display:flex;gap:14px;margin-bottom:14px}.col{flex:1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpi .l{color:var(--mut);font-size:12.5px}.kpi .v{font-size:24px;font-weight:800;margin:6px 0 2px}.kpi .d{font-size:12px;color:var(--ok)}
+.kpi.hl{border:2px solid var(--brand);background:#FFF8F7}.kpi.hl .v{color:var(--brand2)}
+h3{font-size:15px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse}
+th{font-size:12px;text-align:left;color:var(--mut);font-weight:600;padding:9px 10px;border-bottom:1px solid var(--line);background:#FAFAFB}
+td{padding:10px;border-bottom:1px solid var(--line);font-size:13.5px}
+.num{text-align:right}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.ok{background:var(--okbg);color:var(--ok)}.bad{background:var(--badbg);color:var(--bad)}.warn{background:var(--warnbg);color:var(--warn)}.info{background:var(--infobg);color:var(--info)}.neu{background:#EEF0F3;color:#4B5263}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:13px;color:var(--ink)}
+.btn.p{background:var(--brand);border-color:var(--brand);color:#fff}
+.inp{border:1px solid #D1D5DB;border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--mut);background:#fff;min-width:200px}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.sp{flex:1}
+.chart{height:210px;display:flex;align-items:flex-end;gap:14px;padding:10px 6px 0;border-bottom:1px solid var(--line)}
+.chart div{flex:1;border-radius:6px 6px 0 0;position:relative}
+.chart span{position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-size:11px;color:var(--mut)}
+.alert{border-radius:10px;padding:12px 14px;font-size:13px;margin-bottom:14px;display:flex;gap:10px;align-items:center}
+.alert.bad{border:1px solid #FECACA}.alert.ok{border:1px solid #BBF7D0}.alert.info{border:1px solid #BFDBFE}
+.muted{color:var(--mut)}.b{font-weight:700}
+.login{width:1440px;height:900px;display:flex}
+.login .l{flex:1;background:linear-gradient(135deg,#7B1E1E,#B3261E);color:#fff;padding:70px;display:flex;flex-direction:column;justify-content:center}
+.login .l h2{font-size:36px;margin:18px 0 12px;max-width:520px}.login .l p{max-width:470px;opacity:.9;font-size:16px;line-height:1.5}
+.login .r{width:560px;display:flex;align-items:center;justify-content:center;background:#fff}
+.form{width:380px}.form h1{font-size:24px;margin-bottom:6px}.form label{display:block;font-size:13px;font-weight:600;margin:16px 0 6px}
+.form .inp{width:100%}.form .btn{width:100%;justify-content:center;margin-top:22px;padding:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.acc{display:flex;gap:12px;align-items:center}.acc .ic{width:44px;height:44px;border-radius:10px;background:#FFE600;display:flex;align-items:center;justify-content:center;font-weight:800;color:#2D3277}
+.field{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.field .inp{min-width:120px;width:140px;text-align:right;color:var(--ink)}
+.drop{border:2px dashed #D1D5DB;border-radius:12px;padding:22px;text-align:center;color:var(--mut)}
+.steps{display:flex;gap:8px;margin-bottom:14px}.steps div{flex:1;padding:10px;border-radius:8px;background:#EEF0F3;font-size:12.5px;color:var(--mut)}.steps div.on{background:#FFF1F0;color:var(--brand2);font-weight:700}
+.modal{position:absolute;right:40px;top:170px;width:380px;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.18);border:1px solid var(--line);padding:18px}
+.rel{position:relative}
+/* ===== modo wireframe (baixa fidelidade) ===== */
+body.wire{--bg:#fff;--card:#fff;--ink:#333;--mut:#777;--line:#BDBDBD;--brand:#888;--brand2:#555;--ok:#555;--okbg:#E5E5E5;--bad:#555;--badbg:#D4D4D4;--warn:#555;--warnbg:#EDEDED;--info:#555;--infobg:#E5E5E5;font-family:"Comic Sans MS","Segoe Print",Arial,sans-serif}
+body.wire .side{background:#EDEDED;color:#333;border-right:2px solid #999}.body.wire .nav a{color:#444}
+body.wire .nav a{color:#444}body.wire .nav a.on{background:#D4D4D4;color:#222}
+body.wire .logo i{background:#999}
+body.wire .card{border:2px solid #999;border-radius:6px}
+body.wire .chart div{background:repeating-linear-gradient(45deg,#ddd,#ddd 6px,#f3f3f3 6px,#f3f3f3 12px)!important;border:1px solid #999}
+body.wire .login .l{background:#E0E0E0;color:#333}
+body.wire .acc .ic{background:#ccc;color:#333}
+body.wire .kpi.hl{background:#F2F2F2;border:2px dashed #555}
+body.wire .btn.p{background:#666;border-color:#666}
+body.wire .av{background:#ddd;color:#333}
+body.wire td,body.wire th{font-size:13px}
+</style></head>
+<body>
+<div id="root"></div>
+<script>
+const NAV=[['02','Dashboard'],['03','Preço mínimo'],['04','Estoque e sincronização'],['05','Promoções'],['06','Rentabilidade da publicidade'],['12','Carga de anúncios'],['10','Anúncios sem SKU'],['07','Log de auditoria'],['08','Contas do Mercado Livre'],['09','Usuários e perfis'],['11','Configurações']];
+const brl=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+function shell(id,title,sub,body,user='Marcos Andrade · Dono'){
+  const perm=user.includes('Dono')?null:user.includes('Operador')?['04','10']:['02','03','04','05','06','12','10','07'];
+  const nav=NAV.filter(([k])=>!perm||perm.includes(k)).map(([k,l])=>[k,l,NAV.findIndex(n=>n[0]==k)]).map(([k,l,i])=>(i==6?'<div class="sec">Controle</div>':'')+(i==8?'<div class="sec">Administração</div>':'')+`<a class="${k==id?'on':''}"><b></b>${l}</a>`).join('');
+  return `<div class="app"><aside class="side"><div class="logo"><i></i>CannonParts</div><nav class="nav"><div class="sec">Operação</div>${nav}</nav></aside>
+  <main class="main"><div class="top"><div><h1>${title}</h1><div class="sub">${sub}</div></div><div class="user"><span class="inp" style="min-width:150px">Todas as contas ▾</span><span>${user}</span><div class="av">${user[0]}</div></div></div>${body}</main></div>`;
+}
+const S={};
+S['01']=()=>`<div class="login"><div class="l"><div class="logo" style="margin:0"><i style="background:#fff"></i>CannonParts</div><h2>Nenhuma decisão automática abaixo do preço mínimo.</h2><p>Promoções, estoque, publicidade e cadastro em lote de todas as suas contas do Mercado Livre, protegidos pela mesma regra de lucro.</p></div>
+<div class="r"><div class="form"><h1>Entrar no painel</h1><div class="muted">Use o e-mail cadastrado pelo dono da loja.</div><label>E-mail</label><div class="inp">camila@cannonparts.com.br</div><label>Senha</label><div class="inp">••••••••••</div><div class="btn p">Entrar</div><div class="muted" style="margin-top:14px;font-size:12.5px">Recebeu um convite? Use o link do e-mail para criar sua senha.</div></div></div></div>`;
+S['02']=()=>shell('02','Dashboard de vendas','Todas as contas · últimos 30 dias',`
+<div class="row">
+ <div class="card kpi col"><div class="l">Faturamento</div><div class="v">${brl(184320.5)}</div><div class="d">+12,4% vs. período anterior</div></div>
+ <div class="card kpi col"><div class="l">Pedidos</div><div class="v">1.248</div><div class="d">+8,1%</div></div>
+ <div class="card kpi col"><div class="l">Ticket médio</div><div class="v">${brl(147.69)}</div><div class="d">+3,9%</div></div>
+ <div class="card kpi col hl"><div class="l">Lucro protegido no período</div><div class="v">${brl(6842.3)}</div><div class="d" style="color:var(--brand2)">212 decisões bloqueadas abaixo do mínimo</div></div>
+</div>
+<div class="row"><div class="card" style="flex:1.7"><h3>Vendas por semana</h3><div class="chart">${[52,61,58,70,66,78,74,88].map((h,i)=>`<div style="height:${h*2}px;background:${i==7?'#B3261E':'#E8B4AF'}"><span>S${i+1}</span></div>`).join('')}</div><div style="height:22px"></div></div>
+<div class="card col"><h3>De onde veio o lucro protegido</h3><table><tr><th>Decisão</th><th class="num">Qtd.</th><th class="num">Valor</th></tr>
+<tr><td>Convites de promoção recusados</td><td class="num">148</td><td class="num">${brl(4910.4)}</td></tr><tr><td>Preços bloqueados</td><td class="num">39</td><td class="num">${brl(1288.9)}</td></tr><tr><td>Linhas de carga rejeitadas</td><td class="num">25</td><td class="num">${brl(643)}</td></tr></table></div></div>
+<div class="card"><h3>Desempenho por conta</h3><table><tr><th>Conta</th><th class="num">Pedidos</th><th class="num">Faturamento</th><th class="num">Ticket médio</th><th>Situação</th></tr>
+<tr><td>Cannon Parts <span class="tag info">principal</span></td><td class="num">612</td><td class="num">${brl(92410.2)}</td><td class="num">${brl(151)}</td><td><span class="tag ok">Sincronizada há 2 min</span></td></tr>
+<tr><td>Cannon Moto Peças</td><td class="num">401</td><td class="num">${brl(58122.7)}</td><td class="num">${brl(144.94)}</td><td><span class="tag ok">Sincronizada há 2 min</span></td></tr>
+<tr><td>CP Acessórios</td><td class="num">235</td><td class="num">${brl(33787.6)}</td><td class="num">${brl(143.78)}</td><td><span class="tag ok">Sincronizada há 2 min</span></td></tr></table></div>`);
+const PEC=[['KR-CG160','Kit relação CG 160 Titan/Fan',78.4,119.9,139.9,25.4],['PF-T150D','Pastilha de freio dianteira Titan 150',14.2,29.9,34.9,29.5],['RT-BIZ125','Retrovisor esquerdo Biz 125',22.5,44.9,54.9,27.5],['MN-FZ25','Manete de embreagem Fazer 250',18.9,39.9,49.9,36.5],['OL-10W30','Óleo 10W30 semissintético 1 L',21.3,36.9,42.9,17.9],['AM-XRE300','Amortecedor traseiro XRE 300',189,309.9,349.9,23.4]];
+S['03']=()=>shell('03','Preço mínimo por SKU','Custo e piso de preço de cada peça. Nenhum preço, promoção ou anúncio pode ficar abaixo do mínimo.',`
+<div class="alert bad"><span class="tag bad">Bloqueado</span> Tentativa de alterar o preço de <b>PF-T150D</b> para ${brl(26.5)} recusada: abaixo do preço mínimo de ${brl(29.9)} (RN01).</div>
+<div class="card"><div class="bar"><span class="inp" style="min-width:320px">Buscar por SKU ou descrição</span><span class="sp"></span><span class="muted">Mostrando 6 SKUs</span></div>
+<table><tr><th>SKU</th><th>Descrição</th><th class="num">Custo</th><th class="num">Preço mínimo</th><th class="num">Preço atual (ML)</th><th class="num">Margem no preço atual</th><th></th></tr>
+${PEC.map(([s,d,c,m,a,mg])=>`<tr><td class="b">${s}</td><td>${d}</td><td class="num">${brl(c)}</td><td class="num b">${brl(m)}</td><td class="num">${brl(a)}</td><td class="num"><span class="tag ${mg>=20?'ok':'warn'}">${String(mg).replace('.',',')}%</span></td><td class="num"><span class="btn">Editar</span></td></tr>`).join('')}</table></div>`,'Camila Rocha · Analista');
+S['04']=()=>shell('04','Estoque e sincronização','Estoque único de todas as contas. As vendas são lidas e o saldo é enviado a cada 5 minutos.',`<div class="rel">
+<div class="row"><div class="card kpi col"><div class="l">Última sincronização</div><div class="v" style="font-size:20px">há 2 minutos</div><div class="d">37 vendas lidas · 3 contas atualizadas</div></div>
+<div class="card kpi col"><div class="l">SKUs com estoque baixo</div><div class="v" style="font-size:20px">14</div><div class="d" style="color:var(--warn)">saldo ≤ 3 unidades</div></div>
+<div class="card kpi col"><div class="l">Só na conta principal</div><div class="v" style="font-size:20px">6 SKUs</div><div class="d" style="color:var(--info)">última unidade reservada (RN10)</div></div></div>
+<div class="card"><div class="bar"><span class="inp" style="min-width:320px">Buscar por SKU</span><span class="sp"></span></div>
+<table><tr><th>SKU</th><th>Descrição</th><th class="num">Saldo</th><th>Contado em</th><th>Disponível em</th><th></th></tr>
+<tr><td class="b">KR-CG160</td><td>Kit relação CG 160 Titan/Fan</td><td class="num">42</td><td>20/10/2026</td><td>3 contas</td><td class="num"><span class="btn">Ajustar</span></td></tr>
+<tr><td class="b">PF-T150D</td><td>Pastilha de freio dianteira Titan 150</td><td class="num">3</td><td>22/10/2026</td><td>3 contas <span class="tag warn">estoque baixo</span></td><td class="num"><span class="btn">Ajustar</span></td></tr>
+<tr><td class="b">AM-XRE300</td><td>Amortecedor traseiro XRE 300</td><td class="num">1</td><td>18/10/2026</td><td><span class="tag info">só conta principal</span></td><td class="num"><span class="btn">Ajustar</span></td></tr>
+<tr><td class="b">RT-BIZ125</td><td>Retrovisor esquerdo Biz 125</td><td class="num">0</td><td>23/10/2026</td><td><span class="tag neu">sem estoque</span></td><td class="num"><span class="btn">Ajustar</span></td></tr>
+<tr><td class="b">MN-FZ25</td><td>Manete de embreagem Fazer 250</td><td class="num">17</td><td>15/10/2026</td><td>3 contas</td><td class="num"><span class="btn">Ajustar</span></td></tr></table></div>
+<div class="modal"><h3>Ajustar estoque · PF-T150D</h3><div class="muted" style="margin-bottom:10px">Saldo atual: 3 unidades</div><label class="b" style="font-size:13px">Novo saldo após a contagem</label><div class="inp" style="margin:6px 0 12px;color:#1F2430">5</div><div class="muted" style="font-size:12.5px;margin-bottom:14px">O novo saldo será enviado a todas as contas na próxima sincronização e o ajuste ficará no log.</div><div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn">Cancelar</span><span class="btn p">Salvar ajuste</span></div></div></div>`,'Bruno Teixeira · Operador de estoque');
+S['05']=()=>shell('05','Promoções','Convites decididos automaticamente: aceito quando a margem final ≥ 20% e o preço respeita o mínimo.',`
+<div class="row"><div class="card kpi col"><div class="l">Convites avaliados (30 dias)</div><div class="v">386</div></div><div class="card kpi col"><div class="l">Aceitos</div><div class="v" style="color:var(--ok)">238</div></div><div class="card kpi col"><div class="l">Recusados</div><div class="v" style="color:var(--bad)">148</div></div><div class="card kpi col hl"><div class="l">Prejuízo evitado</div><div class="v">${brl(4910.4)}</div></div></div>
+<div class="card"><div class="bar"><span class="inp">Campanha ▾</span><span class="inp">Decisão ▾</span><span class="sp"></span><span class="muted">Próxima avaliação em 12 min</span></div>
+<table><tr><th>Anúncio</th><th>Campanha</th><th class="num">Preço atual</th><th class="num">Preço promocional</th><th class="num">Margem final</th><th>Decisão</th><th>Motivo</th></tr>
+<tr><td>Kit relação CG 160</td><td>Oferta do dia</td><td class="num">${brl(139.9)}</td><td class="num">${brl(129.9)}</td><td class="num">21,0%</td><td><span class="tag ok">Aceito</span></td><td class="muted">Margem acima de 20%</td></tr>
+<tr><td>Pastilha de freio Titan 150</td><td>Relâmpago</td><td class="num">${brl(34.9)}</td><td class="num">${brl(27.9)}</td><td class="num">15,9%</td><td><span class="tag bad">Recusado</span></td><td class="muted">Abaixo do preço mínimo (${brl(29.9)})</td></tr>
+<tr><td>Óleo 10W30 1 L</td><td>Campanha do vendedor</td><td class="num">${brl(42.9)}</td><td class="num">${brl(38.6)}</td><td class="num">10,7%</td><td><span class="tag bad">Recusado</span></td><td class="muted">Margem abaixo de 20%</td></tr>
+<tr><td>Manete Fazer 250</td><td>Desconto por volume</td><td class="num">${brl(49.9)}</td><td class="num">${brl(44.9)}</td><td class="num">31,2%</td><td><span class="tag ok">Aceito</span></td><td class="muted">Margem acima de 20%</td></tr>
+<tr><td>Amortecedor XRE 300</td><td>Oferta do dia</td><td class="num">${brl(349.9)}</td><td class="num">${brl(314.9)}</td><td class="num">16,6%</td><td><span class="tag bad">Recusado</span></td><td class="muted">Margem abaixo de 20%</td></tr></table></div>`,'Camila Rocha · Analista');
+S['06']=()=>shell('06','Rentabilidade da publicidade','Margem de cada anúncio patrocinado comparada ao ACOS real. Somente leitura: o ajuste é feito no Mercado Ads.',`
+<div class="alert bad"><span class="tag bad">3 alertas</span> Anúncios com ACOS acima da margem: cada venda pela publicidade está dando prejuízo.</div>
+<div class="card"><div class="bar"><span class="inp">Período: últimos 7 dias ▾</span><span class="inp">Conta ▾</span><span class="sp"></span></div>
+<table><tr><th>Anúncio</th><th class="num">Preço</th><th class="num">Custo + tarifa + frete</th><th class="num">Margem</th><th class="num">ACOS real</th><th class="num">ACOS-alvo máximo</th><th>Situação</th></tr>
+<tr><td>Kit relação CG 160</td><td class="num">${brl(139.9)}</td><td class="num">${brl(104.3)}</td><td class="num">25,4%</td><td class="num">11,2%</td><td class="num b">25%</td><td><span class="tag ok">Rentável</span></td></tr>
+<tr><td>Amortecedor XRE 300</td><td class="num">${brl(349.9)}</td><td class="num">${brl(268.1)}</td><td class="num">23,4%</td><td class="num">31,8%</td><td class="num b">23%</td><td><span class="tag bad">ACOS acima da margem</span></td></tr>
+<tr><td>Pastilha de freio Titan 150</td><td class="num">${brl(34.9)}</td><td class="num">${brl(24.6)}</td><td class="num">29,5%</td><td class="num">35,0%</td><td class="num b">29%</td><td><span class="tag bad">ACOS acima da margem</span></td></tr>
+<tr><td>Manete Fazer 250</td><td class="num">${brl(49.9)}</td><td class="num">${brl(31.7)}</td><td class="num">36,5%</td><td class="num">8,9%</td><td class="num b">36%</td><td><span class="tag ok">Rentável</span></td></tr>
+<tr><td>Retrovisor Biz 125</td><td class="num">${brl(54.9)}</td><td class="num">${brl(39.8)}</td><td class="num">27,5%</td><td class="num">26,1%</td><td class="num b">27%</td><td><span class="tag warn">Sem estoque · pausar no Ads</span></td></tr>
+<tr><td>Óleo 10W30 1 L</td><td class="num">${brl(42.9)}</td><td class="num">${brl(35.2)}</td><td class="num">17,9%</td><td class="num">22,4%</td><td class="num b">17%</td><td><span class="tag bad">ACOS acima da margem</span></td></tr></table></div>`,'Rafael Souza · Analista');
+S['07']=()=>shell('07','Log de auditoria','Todas as decisões automáticas e alterações manuais, com a regra aplicada.',`
+<div class="card"><div class="bar"><span class="inp" style="min-width:260px">Buscar por SKU, anúncio ou usuário</span><span class="inp">Módulo ▾</span><span class="inp">Origem ▾</span><span class="inp">Período ▾</span></div>
+<table><tr><th>Data e hora</th><th>Módulo</th><th>Ação</th><th>Referência</th><th>Regra</th><th>Responsável</th><th>Status</th></tr>
+<tr><td>26/10 08:55</td><td>Promoção</td><td>RECUSAR_CONVITE</td><td>Pastilha Titan 150</td><td>RN01</td><td class="muted">Sistema</td><td><span class="tag ok">Executada</span></td></tr>
+<tr><td>26/10 08:50</td><td>Estoque</td><td>SINCRONIZAR_ESTOQUE</td><td>3 contas · 37 vendas</td><td>RN05</td><td class="muted">Sistema</td><td><span class="tag ok">Executada</span></td></tr>
+<tr><td>26/10 08:50</td><td>Estoque</td><td>RESERVAR_CONTA_PRINCIPAL</td><td>AM-XRE300</td><td>RN10</td><td class="muted">Sistema</td><td><span class="tag ok">Executada</span></td></tr>
+<tr><td>26/10 08:41</td><td>Estoque</td><td>AJUSTAR_ESTOQUE</td><td>PF-T150D · 3 → 5</td><td>RN06</td><td>Bruno Teixeira</td><td><span class="tag ok">Executada</span></td></tr>
+<tr><td>26/10 08:12</td><td>Anúncio</td><td>CRIAR_ANUNCIO</td><td>Linha 7 · MN-CB300</td><td>RN12</td><td>Larissa Mendes</td><td><span class="tag bad">Falhou</span></td></tr>
+<tr><td>25/10 17:30</td><td>Preço mínimo</td><td>ALTERAR_PRECO_MINIMO</td><td>KR-CG160 · 115,90 → 119,90</td><td>—</td><td>Camila Rocha</td><td><span class="tag ok">Executada</span></td></tr>
+<tr><td>25/10 09:02</td><td>Conta</td><td>RENOVAR_TOKEN</td><td>Cannon Moto Peças</td><td>RN07</td><td class="muted">Sistema</td><td><span class="tag ok">Executada</span></td></tr></table></div>`,'Camila Rocha · Analista');
+S['08']=()=>shell('08','Contas do Mercado Livre','Contas conectadas por OAuth 2.0. A conta principal fica com as últimas unidades de cada peça.',`
+<div class="bar"><span class="sp"></span><span class="btn p">+ Conectar nova conta</span></div>
+<div class="grid2">${[['Cannon Parts',true,'612'],['Cannon Moto Peças',false,'401'],['CP Acessórios',false,'235']].map(([n,p,o])=>`<div class="card"><div class="acc"><div class="ic">ML</div><div style="flex:1"><div class="b">${n} ${p?'<span class="tag info">principal</span>':''}</div><div class="muted" style="font-size:12.5px">${o} pedidos em 30 dias · token renovado automaticamente</div></div><span class="tag ok">Conectada</span></div><div style="display:flex;gap:8px;margin-top:14px">${p?'<span class="btn">Conta principal</span>':'<span class="btn">Tornar principal</span>'}<span class="btn">Desconectar</span></div></div>`).join('')}
+<div class="card" style="display:flex;align-items:center;justify-content:center;border-style:dashed;color:var(--mut)">+ Conectar outra conta do Mercado Livre</div></div>`);
+S['09']=()=>shell('09','Usuários e perfis','Só o dono cadastra usuários. Cada perfil vê apenas os módulos liberados para ele.',`
+<div class="bar"><span class="sp"></span><span class="btn p">+ Convidar usuário</span></div>
+<div class="card"><table><tr><th>Nome</th><th>E-mail</th><th>Perfil</th><th>Situação</th><th></th></tr>
+<tr><td class="b">Marcos Andrade</td><td>marcos@cannonparts.com.br</td><td>Dono</td><td><span class="tag ok">Ativo</span></td><td></td></tr>
+<tr><td class="b">Camila Rocha</td><td>camila@cannonparts.com.br</td><td>Analista</td><td><span class="tag ok">Ativo</span></td><td class="num"><span class="btn">Editar</span></td></tr>
+<tr><td class="b">Rafael Souza</td><td>rafael@cannonparts.com.br</td><td>Analista</td><td><span class="tag ok">Ativo</span></td><td class="num"><span class="btn">Editar</span></td></tr>
+<tr><td class="b">Bruno Teixeira</td><td>bruno@cannonparts.com.br</td><td>Operador de estoque</td><td><span class="tag ok">Ativo</span></td><td class="num"><span class="btn">Editar</span></td></tr>
+<tr><td class="b">Larissa Mendes</td><td>larissa@cannonparts.com.br</td><td>Analista</td><td><span class="tag warn">Convite enviado</span></td><td class="num"><span class="btn">Reenviar convite</span></td></tr></table></div>`);
+S['10']=()=>shell('10','Anúncios sem SKU','Anúncios sem SKU preenchido no Mercado Livre ficam fora das regras automáticas (RN11).',`
+<div class="alert info"><span class="tag info">Como corrigir</span> Preencha o campo SKU do anúncio no Mercado Livre. Na próxima sincronização ele entra no controle de estoque e de preço mínimo.</div>
+<div class="card"><table><tr><th>Anúncio</th><th>Código ML</th><th>Conta</th><th class="num">Preço</th><th>Situação</th><th></th></tr>
+<tr><td>Kit transmissão Bros 160</td><td>MLB-4412093381</td><td>Cannon Moto Peças</td><td class="num">${brl(129.9)}</td><td><span class="tag warn">Sem SKU</span></td><td class="num"><span class="btn">Abrir no ML ↗</span></td></tr>
+<tr><td>Cabo de acelerador Pop 110</td><td>MLB-4398812045</td><td>CP Acessórios</td><td class="num">${brl(24.9)}</td><td><span class="tag warn">Sem SKU</span></td><td class="num"><span class="btn">Abrir no ML ↗</span></td></tr>
+<tr><td>Lâmpada farol H4 12V</td><td>MLB-4377102218</td><td>Cannon Parts</td><td class="num">${brl(19.9)}</td><td><span class="tag warn">Sem SKU</span></td><td class="num"><span class="btn">Abrir no ML ↗</span></td></tr></table></div>`,'Bruno Teixeira · Operador de estoque');
+S['11']=()=>shell('11','Configurações','Parâmetros das regras automáticas. Toda alteração fica registrada no log.',`
+<div class="grid2"><div class="card"><h3>Promoções e publicidade</h3>
+<div class="field"><div><div class="b">Margem mínima para aceitar convite</div><div class="muted" style="font-size:12.5px">RN02</div></div><div class="inp">20%</div></div>
+<div class="field"><div><div class="b">Tarifa de venda do Mercado Livre</div><div class="muted" style="font-size:12.5px">usada no cálculo da margem (RN03)</div></div><div class="inp">16%</div></div>
+<div class="field"><div><div class="b">Tarifa fixa por venda</div><div class="muted" style="font-size:12.5px">para itens abaixo do valor de referência</div></div><div class="inp">R$ 6,25</div></div></div>
+<div class="card"><h3>Estoque e sincronização</h3>
+<div class="field"><div><div class="b">Alerta de estoque baixo</div><div class="muted" style="font-size:12.5px">RN04</div></div><div class="inp">3 unidades</div></div>
+<div class="field"><div><div class="b">Limite para ficar só na conta principal</div><div class="muted" style="font-size:12.5px">RN10</div></div><div class="inp">1 unidade</div></div>
+<div class="field"><div><div class="b">Intervalo da sincronização</div><div class="muted" style="font-size:12.5px">RF05</div></div><div class="inp">5 minutos</div></div></div></div>
+<div class="bar" style="margin-top:14px"><span class="sp"></span><span class="btn">Descartar</span><span class="btn p">Salvar configurações</span></div>`);
+S['12']=()=>shell('12','Carga de anúncios em lote','Importe uma planilha, confira os erros e crie só os anúncios válidos.',`
+<div class="steps"><div>1. Enviar planilha</div><div class="on">2. Conferir a prévia</div><div>3. Criar anúncios</div></div>
+<div class="row"><div class="card col"><div class="drop"><b>carga_pecas_outubro.xlsx</b> · 20 linhas · enviada às 08:10</div></div>
+<div class="card col" style="display:flex;gap:10px;align-items:center;justify-content:space-around"><div><div class="muted">Válidas</div><div class="b" style="font-size:24px;color:var(--ok)">17</div></div><div><div class="muted">Com erro</div><div class="b" style="font-size:24px;color:var(--bad)">3</div></div><div><div class="muted">Conta de destino</div><div class="inp" style="min-width:170px">Cannon Parts ▾</div></div></div></div>
+<div class="card"><table><tr><th>Linha</th><th>SKU</th><th>Título</th><th class="num">Preço</th><th class="num">Preço mínimo</th><th>Resultado da validação</th></tr>
+<tr><td>1</td><td class="b">KR-BROS160</td><td>Kit relação Bros 160 aço 1045</td><td class="num">${brl(134.9)}</td><td class="num">${brl(118)}</td><td><span class="tag ok">Pronta para criar</span></td></tr>
+<tr><td>2</td><td class="b">PF-CB300T</td><td>Pastilha de freio traseira CB 300</td><td class="num">${brl(32.9)}</td><td class="num">${brl(27.5)}</td><td><span class="tag ok">Pronta para criar</span></td></tr>
+<tr><td>7</td><td class="b">MN-CB300</td><td>Manete de freio CB 300</td><td class="num">${brl(29.9)}</td><td class="num">${brl(34.9)}</td><td><span class="tag bad">Preço abaixo do mínimo (RN12)</span></td></tr>
+<tr><td>11</td><td class="b">XX-0000</td><td>Bauleto 41 L</td><td class="num">${brl(219)}</td><td class="num">—</td><td><span class="tag bad">SKU não cadastrado</span></td></tr>
+<tr><td>15</td><td class="b">RT-FAN160</td><td>Retrovisor direito Fan 160</td><td class="num">—</td><td class="num">${brl(39.9)}</td><td><span class="tag bad">Preço obrigatório vazio</span></td></tr></table>
+<div class="bar" style="margin:14px 0 0"><span class="muted">Mostrando 5 de 20 linhas</span><span class="sp"></span><span class="btn">Baixar relatório de erros</span><span class="btn p">Criar 17 anúncios válidos</span></div></div>`,'Larissa Mendes · Analista');
+const q=new URLSearchParams(location.search);const id=q.get('s')||'02';if(q.get('wire'))document.body.classList.add('wire');
+document.getElementById('root').innerHTML=S[id]();
+</script></body></html>
